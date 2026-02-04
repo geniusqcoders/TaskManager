@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <h1>To-do list</h1>
+    </main>
+
+    <div className="todo-card">
+        <article class="card">
+            <section>
+                <h2 class="tasks">TASKS</h2>
+
+                <article class="tasks_item">
+                    <ul class="todo-list" id="task-list">
+                        <li class="todo-item">
+                            <span class="task_name"></span>
+                        </li>
+                    </ul>
+                </article>
+        </article>
+        </section>
+
+        <div class="manage">
+            <article class="manageCard">
+                <button class="plusTask" id="btnPlus">
+                    <iconify-icon icon="ic:round-plus" width="24" height="24"></iconify-icon>
+                </button>
+
+                <div class="form">
+                    <input class="input" placeholder="Type your text" required="" type="text" id="task-input">
+                    <span class="input-border"></span>
+                </div>
+
+                <button class="minusTask" id="btnMinus">
+                    <iconify-icon icon="tabler:minus" width="24" height="24"></iconify-icon>
+                </button>
+            </article>
+        </div>
+
+    </div>
+
+</body>
+<script src="main.js"></script>
+<script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+
+</html>
