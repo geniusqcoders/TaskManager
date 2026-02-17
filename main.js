@@ -1,75 +1,215 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const increaseBtn = document.getElementById('btnPlus');
-  const decreaseBtn = document.getElementById('btnMinus');
-  const taskList = document.getElementById('task-list');
-  const input = document.getElementById('task-input');
+@font-face {
+    font-family: 'Archivo Black';
+    src: url('./fonts/ArchivoBlack-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
-  const maxTasks = 12;
+@font-face {
+    font-family: 'Bungee';
+    src: url('./fonts/Bungee-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
-  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  tasks.forEach(taskObj => addTask(taskObj.text, taskObj.completed, false));
+body {
+    background-color: rgb(31, 31, 31);
+    margin: 0;
+}
 
-  increaseBtn.addEventListener('click', (e) => {
-    e.preventDefault();
+h1 {
+    display: flex;
+    justify-content: center;
+    color: aliceblue;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 45px;
+    margin-top: 70px;
+}
 
-    const text = input.value.trim();
-    if (text === '') return;
-    if (taskList.children.length >= maxTasks) return;
+.card {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 700px;
+    height: 600px;
+    background-color: #474646;
+    border-radius: 16px;
+}
 
-    addTask(text, false, true);
-    input.value = '';
-  });
+.tasks {
+    color: #ffffff;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
 
-  decreaseBtn.addEventListener('click', () => {
-    removeTask();
-  });
+.todo-item {
+    display: flex;
+    width: 650px;
+    min-height: 30px;
+    max-height: 50px;
+    background-color: rgb(243, 243, 243);
+    border-radius: 10px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-left: 40px;
+}
 
-  function addTask(text, completed = false, saveToStorage = true) {
-    const task = document.createElement('li');
-    task.classList.add('todo-item', 'add-animate');
-    if (completed) task.classList.add('completed');
+ul {
+    list-style: none;
+    padding: 0;
+}
 
-    const span = document.createElement('span');
-    span.textContent = text;
-    span.classList.add('task_name');
+.manageCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 667px;
+    height: 50px;
+    margin: 20px auto;
+    padding: 0 20px;
+    background-color: #474646;
+    border-radius: 16px;
+    position: relative;
+}
 
-    task.appendChild(span);
-    taskList.appendChild(task);
+.plusTask,
+.minusTask {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    const taskIndex = taskList.children.length - 1;
+.plusTask:hover,
+.minusTask:hover {
+    transition: 0.3s;
+    background: aliceblue;
+}
 
-    task.addEventListener('click', () => {
-      task.classList.toggle('completed');
-      tasks[taskIndex].completed = task.classList.contains('completed');
-      saveTasks();
-    });
-
-    task.addEventListener('animationend', () => {
-      task.classList.remove('add-animate');
-    }, { once: true });
-
-    if (saveToStorage) {
-      tasks.push({ text: text, completed: false });
-      saveTasks();
+@keyframes click-animation {
+    0% {
+        transform: scale(1);
     }
-  }
 
-  function removeTask() {
-    const task = taskList.lastElementChild;
-    if (!task) return;
-    if (task.classList.contains('remove-animate')) return;
+    50% {
+        transform: scale(0.9);
+    }
 
-    task.classList.add('remove-animate');
+    100% {
+        transform: scale(1);
+    }
+}
 
-    task.addEventListener('animationend', () => {
-      task.remove();
-      tasks.pop();
-      saveTasks();
-    }, { once: true });
-  }
+.plusTask:active,
+.minusTask:active {
+    animation: click-animation 0.15s forwards;
+}
 
-  function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
-});
+@keyframes addAnimate {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(0.7);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.todo-item.add-animate {
+    animation: addAnimate 0.25s ease-out forwards;
+}
+
+@keyframes removeAnimate {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.7);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.todo-item.remove-animate {
+    animation: removeAnimate 0.2s ease-in forwards;
+}
+
+.form {
+    --width-of-input: 200px;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: #5891ff;
+    --input-hovered-color: #4985e01f;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--width-of-input);
+}
+
+.input {
+    color: #fff;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7em 0.5em;
+    border: none;
+    border-bottom: var(--border-height) solid var(--border-before-color);
+}
+
+.input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+
+input:hover {
+    background: var(--input-hovered-color);
+}
+
+input:focus {
+    outline: none;
+}
+
+input:focus~.input-border {
+    width: 100%;
+}
+
+.todo-item.completed .task_name {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+.task_name {
+    font-family: 'Bungee', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
