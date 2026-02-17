@@ -1,40 +1,48 @@
+@font-face {
+    font-family: 'Archivo Black';
+    src: url('./fonts/ArchivoBlack-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bungee';
+    src: url('./fonts/Bungee-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 body {
     background-color: rgb(31, 31, 31);
+    margin: 0;
 }
 
 h1 {
     display: flex;
     justify-content: center;
     color: aliceblue;
-
-    font-family: "Archivo Black", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'Archivo Black', sans-serif;
     font-size: 45px;
-
     margin-top: 70px;
 }
 
 .card {
     display: flex;
     justify-content: center;
-
     margin: 0 auto;
-
     width: 700px;
     height: 600px;
     background-color: #474646;
     border-radius: 16px;
-
 }
 
 .tasks {
     color: #ffffff;
-    font-family: "Archivo Black", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'Archivo Black', sans-serif;
     font-size: 20px;
-
     text-align: center;
 }
 
@@ -47,28 +55,26 @@ h1 {
     border-radius: 10px;
     margin-right: 40px;
     margin-top: 10px;
+    margin-left: 40px;
 }
 
 ul {
     list-style: none;
+    padding: 0;
 }
 
 .manageCard {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     width: 667px;
     height: 50px;
-
     margin: 20px auto;
     padding: 0 20px;
-
     background-color: #474646;
     border-radius: 16px;
     position: relative;
 }
-
 
 .plusTask,
 .minusTask {
@@ -78,42 +84,15 @@ ul {
     background: transparent;
     border-radius: 10px;
     cursor: pointer;
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.plusTask:hover,
 .minusTask:hover {
-    transition: 0.5s;
-    border: aliceblue;
-    outline: aliceblue;
+    transition: 0.3s;
     background: aliceblue;
-    border-radius: 10px;
-}
-
-.plusTask:hover {
-    transition: 0.5s;
-    border: aliceblue;
-    outline: aliceblue;
-    background: aliceblue;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.plusTask:active {
-    animation: click-animation 0.15s forwards;
-}
-
-.minusTask:active {
-    animation: click-animation 0.15s forwards;
-}
-
-.ui-checkbox {
-    margin-left: 8px;
-    margin-top: 5px;
 }
 
 @keyframes click-animation {
@@ -130,6 +109,10 @@ ul {
     }
 }
 
+.plusTask:active,
+.minusTask:active {
+    animation: click-animation 0.15s forwards;
+}
 
 @keyframes addAnimate {
     0% {
@@ -179,7 +162,9 @@ ul {
     --border-before-color: rgba(221, 221, 221, 0.39);
     --border-after-color: #5891ff;
     --input-hovered-color: #4985e01f;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     width: var(--width-of-input);
 }
 
@@ -189,11 +174,9 @@ ul {
     background-color: transparent;
     width: 100%;
     box-sizing: border-box;
-    padding-inline: 0.5em;
-    padding-block: 0.7em;
+    padding: 0.7em 0.5em;
     border: none;
     border-bottom: var(--border-height) solid var(--border-before-color);
-
 }
 
 .input-border {
@@ -218,24 +201,15 @@ input:focus~.input-border {
     width: 100%;
 }
 
-.form {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
 .todo-item.completed .task_name {
     text-decoration: line-through;
     opacity: 0.4;
 }
 
 .task_name {
-    font-family: "Bungee", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'Bungee', sans-serif;
     font-size: 16px;
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-left: 15px;
-}   
+}
